@@ -92,11 +92,11 @@ function SideBar(){
 
                 {topStreams.map((stream,index) => (
 
-                 /*   <Link key={index}
+                   <Link key={index}
                         className="lien"
                         to={{
                             pathname: `/live/${stream.login}`
-                        }}  >*/
+                        }}  >
                         <li key={index} className="containerFlexSidebar">
 
                             <img src={stream.truePic} alt="logo user" className="profilePicRonde"/>
@@ -114,7 +114,7 @@ function SideBar(){
 
 
                         </li>
-                 //   </Link>
+                    </Link>
 
                 ))}
 
