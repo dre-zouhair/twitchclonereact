@@ -30,24 +30,26 @@ function Live() {
         }
     ,[]);
     return (
-        <div className="containerDecale">
-            <ReactTwitchEmbedVideo height="754" width="100%" channel={slug}>
-            </ReactTwitchEmbedVideo>
-            <div className="contInfo">
-                <div className="titreStream">
-                    {infoStream.title}
-                </div>
-                <div className="viewer">
-                   Viewrs :  {infoStream.viewer_count}
-                </div>
-                <div className="infogame">
-                    Streamer :  {infoStream.user_name}, &nbsp; langue : {infoStream.language}
-                </div>
-                <div className="nomJeu">
-                    Viewrs :  {infoGame}
+        infoStream  ?
+
+            <div className="containerDecale">
+                <ReactTwitchEmbedVideo height="754" width="100%" channel={slug}/>
+                <div className="contInfo">
+                    <div className="titreStream">{infoStream.title}</div>
+                    <div className="viewer">Viewers : {infoStream.viewer_count}</div>
+                    <div className="infogame">Streamer : {infoStream.user_name}, &nbsp; Langue : {infoStream.language}</div>
+                    <div className="nomJeu">Jeu : {infoGame}</div>
                 </div>
             </div>
-        </div>
+
+            :
+
+            <div className="containerDecale">
+                <ReactTwitchEmbedVideo height="754" width="100%" channel={slug}/>
+                <div className="contInfo">
+                    <div className="titreStream">Le Streamer est offline ! </div>
+                </div>
+            </div>
     );
 
 }
