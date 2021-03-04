@@ -21,9 +21,10 @@ function GameStreams(){
             let dataArray = result.data.data;
 
             let finalArray = dataArray.map(stream => {
-                stream.thumbnail_url = stream.thumbnail_url
+                let newURL = stream.thumbnail_url
                     .replace('{width}', "320")
                     .replace('{height}', "180");
+                stream.thumbnail_url = newURL;
                 return stream;
             })
 
