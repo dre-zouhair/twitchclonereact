@@ -1,9 +1,9 @@
 import React,{useEffect,useState} from 'react';
-import {useParams,useLocation} from 'react-router-dom';
+import {useParams,useLocation,Link} from 'react-router-dom';
 import api from "../../api";
 function GameStreams() {
-    let slug = useParams();
-    let location = useLocation();
+    let {slug} = useParams();
+    let {location} = useLocation();
     console.log(slug,location);
     const [streamData,setStreamData] = useState([]);
     const [viewers,setViewers] = useState([]);
@@ -53,12 +53,37 @@ function GameStreams() {
 
             }
             fetchData();
-        }
-
-    ,[]);
+        },[location.state.gameID]);
     return (
         <div>
-            GamStremas video 23
+            <h1 className="titreGamesStreams">{slug}</h1>
+            <h3 className="sousTitreGameStreams">
+                <strong className="textColored">{viewers} </strong> personnes regarde {slug}
+            </h3>
+            <div className="flexAccueil">
+                {streamData.map(
+                    (stream,index) =>(
+                        <div key={index} className="carteGameStreams">
+                            <img src={stream.thumbnail_url} alt="jeu carte img" className="imgCarte"/>
+                            <div className="cardBodyGames">
+                                <h5 className="titreCartesStream">
+                                    {stream.user_name}
+                                </h5>
+                                <p className="txtStream">
+                                    Nombre de viewers : stream.viewer_count
+                                </p>
+                                <Link className="lien" to={{
+                                    pathname:`/live/${stream.login}`
+                                }}>
+                                    <div className="btnCarte">
+                                        Regarder : {stream.user_name}
+                                    </div>
+                                </Link>
+                            </div>
+                        </div>
+                    )
+                )}
+            </div>
         </div>
     );
 
