@@ -1,5 +1,6 @@
 import React,{useState,useEffect} from 'react';
 import api from "../../api";
+import {Link} from "react-router-dom";
 
 
 function Games() {
@@ -9,8 +10,7 @@ function Games() {
             const res = await api.get('https://api.twitch.tv/helix/games/top');
             let dataArray = res.data.data;
             let finalArray = dataArray.map(game => {
-                let new_url = game.box_art_url.replace("{width}","250").replace("{height}","300");
-                game.box_art_url = new_url;
+                game.box_art_url = game.box_art_url.replace("{width}","250").replace("{height}","300");
                 return game;
             });
             setGames(finalArray);
@@ -27,7 +27,17 @@ function Games() {
                             <img src={game.box_art_url} alt="jeu profile pic" className="imgCarte"/>
                             <div className="cardBodyGames" >
                                 <h5 className="titreCarteGames" > {game.name}</h5>
-                                <div className="btnCarte" > Regarder {game.name}</div>
+                                <Link className="lien" to={
+                                    {
+                                        pathname:"/game/"+game.name,
+                                        state : {
+                                            gameID : game.id
+                                        }
+                                    }
+                                } >
+                                    <div className="btnCarte" > Regarder {game.name}</div>
+                                </Link>
+
                             </div>
                         </div>
                     )
