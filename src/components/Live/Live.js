@@ -11,19 +11,25 @@ function Live() {
         () => {
             const fetchData = async () => {
                 const res = await api.get(`https://api.twitch.tv/helix/streams?user_login=${slug}`);
-                let gameID = res.data.data.map(
-                    game => {
-                        return game.game_id;
-                    }
-                );
-                const resNomGame = await api.get(`https://api.twitch.tv/helix/games?id=${gameID}`);
-                let nomJeu = resNomGame.data.data.map(
-                    gameName => {
-                        return gameName.name;
-                    }
-                );
-                setInfoGame(nomJeu);
-                setInfoStream(res.data.data[0]);
+                if(res.data.data.length === 0 ){
+                    setInfoStream(false);
+                }else{
+                    let gameID = res.data.data.map(
+                        game => {
+                            return game.game_id;
+                        }
+                    );
+                    const resNomGame = await api.get(`https://api.twitch.tv/helix/games?id=${gameID}`);
+                    let nomJeu = resNomGame.data.data.map(
+                        gameName => {
+                            return gameName.name;
+                        }
+                    );
+                    setInfoGame(nomJeu);
+                    setInfoStream(res.data.data[0]);
+                }
+
+
             }
             fetchData();
 
